@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define FORi(n) for(int i=0;i<n;i++)
 
-void main() {
+int main() {
     int n,x,y,z; scanf("%d %d %d %d", &n,&x,&y,&z);
     int v[] = {x,y,z};
 
@@ -16,4 +16,6 @@ void main() {
         else { break; }
     }
     printf("%d\n", ans);
+
+    return 0;
 }
