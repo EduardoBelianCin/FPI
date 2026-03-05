@@ -1,2 +1,2 @@
-Dia 04/03 - Na aula presencial realizei as questoes A e B sem nenhum auxilio da IA.
-
+Dia 04/03 (Aula) - Na aula presencial realizei as questoes A e B sem nenhum auxilio da IA.
+Dia 04/03 (Noite) - Terminei as questões C e D sem auxilio de IA, mas estou em dúvida se a questão C vai funcionar corretamente nos casos ocultos.
