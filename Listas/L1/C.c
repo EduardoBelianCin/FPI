@@ -43,7 +43,10 @@ int main() {
 
                     int i1,i2,i3; scanf(" %d %d %d", &i1, &i2, &i3);
                     int soma_parcelas = 0;
-                    if(i1%3 == 0 || i2%3 == 0 || i3%3 == 0) { soma_parcelas = i1/3 + i2/3 + i3/3; printf("%d\n", soma_parcelas); }
+                    if(i1%3 == 0) { soma_parcelas += i1/3; }
+                    if(i2%3 == 0) { soma_parcelas += i2/3; }
+                    if(i3%3 == 0) { soma_parcelas += i3/3; }
+                    if(soma_parcelas > 0) { printf("%d\n", soma_parcelas); }
                     rebeka += resto;
                 }
                 else {
