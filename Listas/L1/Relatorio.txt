@@ -3,4 +3,4 @@ Dia 04/03 (Noite) - Terminei as questões C e D sem auxilio de IA, mas estou em 
 
 Dia 08/03 - The Huxley voltou, as questões A e D foram passadas com sucesso. Pedi auxilio da IA pra identificarmos possíveis causas de Wrong Answer nos casos ocultos.
         - Na questão B corrigi um Overflow que estava acontecendo na multiplicação de 10^7 por 10^7, substituindo os Int's por Long long
-        - 
+        - Na questão C fiz diversas possíveis correções mas 1 dos casos (caso 7) não foi passado de forma alguma
