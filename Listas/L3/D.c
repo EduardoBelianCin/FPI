@@ -1,7 +1,6 @@
 #include <stdio.h>
 #define FORi(n) for(int i=0;i<n;i++)
 #define FORj(n) for(int j=0;j<n;j++)
-#define FORk(n) for(int k=0;k<n;k++)
 
 int main() {
     char ans[61000]; int idx_ans = 0;
