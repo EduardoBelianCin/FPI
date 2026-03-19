@@ -3,3 +3,5 @@ Dia 18/03 - Resolvi a questão A sem auxilio de IA
         - Resolvi a questão C sem auxilio de IA, apenas consultei como eu fazia pro scanf ler a linha toda e parar somente no '\n'
         - Resolvi a questão D sem auxilio de IA, só fiz uma consulta para entender meu erro no caso 4 da questão, e a IA identificou corretamente
         que eu precisava fazer uma troca de "1" por "1LL", em um calculo que necessitava mais de 32 bits
+
+Dia 19/03 - Monitor avisou que não podia utilizar matrizes, como eu havia utilizado na questão C fiz a correção
