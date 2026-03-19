@@ -8,21 +8,25 @@ int main() {
     // Lê tudo até achar um '\n'
     scanf(" %[^\n]", S);
 
-    char palavras[50][101];
+//    char palavras[50][101];
+    char palavras[5050];
 
     char c = S[0];
     int idx_S = 0, idx_palavra = 0;
 
     while(c != '\0') {
         int idx_letra = 0;
+        int pos = 0;
         // enquanto c for letra, minuscula ou maiuscula
         while(('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')) {
-            palavras[idx_palavra][idx_letra] = c;
+            pos = idx_palavra*50 + idx_letra;
+            palavras[pos] = c;
             idx_letra++;
             idx_S++;
             c = S[idx_S];
         }
-        palavras[idx_palavra][idx_letra] = '\0';
+        pos = idx_palavra*50 + idx_letra;
+        palavras[pos] = '\0';
 
         // enquanto c nao for letra
         while(!(('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z')) && c != '\0') {
@@ -34,22 +38,31 @@ int main() {
     }
     int qtd_palavras = idx_palavra;
 
-    int freq_letras[50][26];
+//    int freq_letras[50][26];
+    int freq_letras[1300];
     // inicializa freq de cada letra com 0 pra cada palavra
-    FORi(qtd_palavras) { FORj(26) { freq_letras[i][j] = 0; } }
+    FORi(qtd_palavras) {
+        FORj(26) {
+            int pos = i*50 + j;
+            freq_letras[pos] = 0;
+        }
+    }
 
     // preenche a freq de cada letra pra cada palavra
     FORi(qtd_palavras) {
         int j=0;
-        c = palavras[i][j];
+        int pos = i*50 + j;
+        c = palavras[pos];
         while(c != '\0') {
             int letra = 0;
             if('a' <= c && c <= 'z') { letra = c-'a'; }
             else if('A' <= c && c <= 'Z') { letra = c-'A'; }
 
-            freq_letras[i][letra]++;
+            pos = i*50 + letra;
+            freq_letras[pos]++;
             j++;
-            c = palavras[i][j];
+            pos = i*50 + j;
+            c = palavras[pos];
         }
     }
 
@@ -61,7 +74,10 @@ int main() {
         for(int j=i+1;j<qtd_palavras;j++) {
             int anagrama_valido = 1;
             // compara a freq de todas as letras, se uma for diferente o anagrama é invalido
-            FORk(26) { if(freq_letras[i][k] != freq_letras[j][k]) { anagrama_valido = 0; } }
+            FORk(26) {
+                int pos1 = i*50 + k, pos2 = j*50 + k;
+                if(freq_letras[pos1] != freq_letras[pos2]) { anagrama_valido = 0; }
+            }
 
             if(anagrama_valido == 1) {
                 // salva os idx i e j pra printar no final
@@ -76,7 +92,28 @@ int main() {
     else {
         printf("Pares de anagramas encontrados:\n");
 
-        FORi(qtd_anagramas) { printf("%s e %s\n", palavras[ans1[i]], palavras[ans2[i]]); }
+        FORi(qtd_anagramas) {
+            char palavra1[101], palavra2[101];
+
+            int idx_p1 = ans1[i]*50, idx_p2 = ans2[i]*50;
+            int idx = 0;
+            while(palavras[idx_p1] != '\0') {
+                palavra1[idx] = palavras[idx_p1];
+                idx_p1++;
+                idx++;
+            }
+            palavra1[idx] = '\0';
+
+            idx = 0;
+            while(palavras[idx_p2] != '\0') {
+                palavra2[idx] = palavras[idx_p2];
+                idx_p2++;
+                idx++;
+            }
+            palavra2[idx] = '\0';
+
+            printf("%s e %s\n", palavra1, palavra2);
+        }
 
         printf("\nTotal de pares: %d", qtd_anagramas);
     }
