@@ -3,7 +3,7 @@
 #define FORj(n) for(int j=0;j<n;j++)
 
 int main() {
-    char ans[61000]; int idx_ans = 0;
+    char ans[100]; int idx_ans = 0;
 
     int t; scanf("%d", &t);
     FORi(t) {
