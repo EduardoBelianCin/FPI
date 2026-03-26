@@ -2,3 +2,9 @@ Dia 23/03 - Resolvi a questão A sem auxilio de IA
         - Resolvi a questão B sem auxilio de IA
         - Resolvi a questão C sem auxilio de IA
         - Resolvi a questão D sem auxilio de IA
+
+Dia 25/03 - Monitores avisaram no discord que era OBRIGATÓRIO o uso de funções, então vou corrigir todos os códigos
+        - Fiz a correção da questão A
+        - Fiz a correção da questão B
+        - Fiz a correção da questão C
+        - Fiz a correção da questão D

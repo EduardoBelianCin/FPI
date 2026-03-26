@@ -3,6 +3,11 @@
 #define FORj(n) for(int j=0;j<n;j++)
 #define FORk(n) for(int k=0;k<n;k++)
 
+int inRange(int x,int y, int n,int m) {
+    if(x>=0 && x<n && y>=0 && y<m) { return 1; }
+    else { return 0; }
+}
+
 int main() {
     int n,m; scanf("%d %d", &n,&m);
 
@@ -23,7 +28,7 @@ int main() {
                 FORk(8) {
                     int ai = i + dx[k], aj = j + dy[k];
                     // Posição Válida
-                    if(ai>=0 && ai<n && aj>=0 && aj<m) {
+                    if(inRange(ai,aj, n,m)) {
                         if(k < 4) { if(Matriz[ai][aj] != 'P') { Matriz[ai][aj] = '+'; } }
                         else if(Matriz[ai][aj] == '-') { Matriz[ai][aj] = 'x'; }
                     }

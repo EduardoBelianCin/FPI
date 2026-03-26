@@ -2,6 +2,17 @@
 #define FORi(n) for(int i=0;i<n;i++)
 #define FORj(n) for(int j=0;j<n;j++)
 
+int Novo_X(int x, char dir) {
+    if(dir == 'c' ) { x--; }
+    else if(dir == 'b') { x++; }
+    return x;
+}
+int Novo_Y(int y, char dir) {
+    if(dir == 'e') { y--; }
+    else if(dir == 'd') { y++; }
+    return y;
+}
+
 int main() {
     char Movimentos[20];
     FORi(20) { Movimentos[i] = ' '; }
@@ -20,10 +31,9 @@ int main() {
     FORi(20) {
         char c = Movimentos[i];
 
-        if(c == 'c' ) { x--; }
-        else if(c == 'b') { x++; }
-        else if(c == 'e') { y--; }
-        else if(c == 'd') { y++; }
+        // Próxima Casa
+        x = Novo_X(x, c);
+        y = Novo_Y(y, c);
 
         // Analisa se passou a maior freq
         Matriz[x][y]++;

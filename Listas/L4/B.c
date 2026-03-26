@@ -2,6 +2,11 @@
 #define FORi(n) for(int i=0;i<n;i++)
 #define FORj(n) for(int j=0;j<n;j++)
 
+int inRange(int x,int y, int n,int m) {
+    if(x>=0 && x<n && y>=0 && y<m) { return 1; }
+    else { return 0; }
+}
+
 int main() {
     int n,m; scanf("%d %d", &n,&m);
 
@@ -29,7 +34,7 @@ int main() {
         int x = Matriz_O[idx][0], y = Matriz_O[idx][1];
 
         // Queda da Agua
-        if(x+1 < n && Matriz[x+1][y] == '.') {
+        if(inRange(x+1,y, n,m) && Matriz[x+1][y] == '.') {
             Matriz[x+1][y] = 'o';
             // Adiciona o novo O na Queue
             Matriz_O[idx_O][0] = x+1;
@@ -38,7 +43,7 @@ int main() {
         }
         else {
             // Escorrimento Pra Esquerda
-            if(x+1 < n && Matriz[x+1][y] == '#' && y-1 >= 0 && Matriz[x][y-1] == '.') {
+            if(inRange(x+1,y, n,m) && Matriz[x+1][y] == '#' && inRange(x,y-1, n,m) && Matriz[x][y-1] == '.') {
                 Matriz[x][y-1] = 'o';
                 // Adiciona o novo O na Queue
                 Matriz_O[idx_O][0] = x;
@@ -46,7 +51,7 @@ int main() {
                 idx_O++; Qtd_O++;
             }
             // Escorrimento Pra Direita
-            if(x+1 < n && Matriz[x+1][y] == '#' && y+1 < m && Matriz[x][y+1] == '.') {
+            if(inRange(x+1,y, n,m) && Matriz[x+1][y] == '#' && inRange(x,y+1, n,m) && Matriz[x][y+1] == '.') {
                 Matriz[x][y+1] = 'o';
                 // Adiciona o novo O na Queue
                 Matriz_O[idx_O][0] = x;

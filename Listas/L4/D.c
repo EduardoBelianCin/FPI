@@ -2,6 +2,11 @@
 #define FORi(n) for(int i=0;i<n;i++)
 #define FORj(n) for(int j=0;j<n;j++)
 
+int inRange(int x,int y, int n,int m) {
+    if(x>=0 && x<n && y>=0 && y<m) { return 1; }
+    else { return 0; }
+}
+
 int main() {
     int n,m; scanf("%dx%d", &n,&m);
 
@@ -48,7 +53,7 @@ int main() {
             int ax = x + dx[i], ay = y + dy[i];
 
             // Se a Posição Existe e Não foi preenchida ainda
-            if(ax>=0 && ax<n && ay>=0 && ay<m && Matriz_Dist[ax][ay] == 0) {
+            if(inRange(ax,ay, n,m) && Matriz_Dist[ax][ay] == 0) {
                 Matriz_Dist[ax][ay] = prev_dist + 1;
                 Queue[idx_q][0] = ax; Queue[idx_q][1] = ay;
                 idx_q++;
