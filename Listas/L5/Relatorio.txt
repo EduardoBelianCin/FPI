@@ -1,3 +1,3 @@
-Dia 13/04 - Resolvi a questão A sem auxilio de IA
-        - Resolvi a questão B sem auxilio de IA
+Dia 13/04 - 
+        - 
         - Resolvi a questão C, usei a IA pra corrigir um erro apenas na minha alocação dinâmica que estava dando errado
