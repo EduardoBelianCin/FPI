@@ -1,1 +1,3 @@
 Dia 27/04 - Resolvi a questão A sem auxilio de IA.
+        - Resolvi a questão B, utilizei IA para ajudar-me a fazer uma função de Copy e para ajustar erros.
+        - Resolvi a questão C sem auxilio de IA.
