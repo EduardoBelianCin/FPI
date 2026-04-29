@@ -1,3 +1,5 @@
 Dia 27/04 - Resolvi a questão A sem auxilio de IA.
         - Resolvi a questão B, utilizei IA para ajudar-me a fazer uma função de Copy e para ajustar erros.
         - Resolvi a questão C sem auxilio de IA.
+
+Dia 29/04 - Resolvi a questão D (Extra) com auxilio constante da IA, pra corrigir erro envolvendo os ponteiros. A parte da lógica em si da questão não foi necessário IA.

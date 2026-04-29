@@ -3,6 +3,7 @@
 #include <string.h>
 #define FORi(n) for(int i=0;i<n;i++)
 #define FORj(n) for(int j=0;j<n;j++)
+#define FORk(n) for(int k=0;k<n;k++)
 
 void Check_Null(void* p) {
     if(p == NULL) {
@@ -79,10 +80,25 @@ void Update_Treinador_Forca(Treinador *treinador) {
     treinador->Nivel = novo_nivel;
 }
 
+Treinador* Copy_Treinadores(Treinador *Treinadores, int n) {
+    Treinador* copia = (Treinador*) malloc(n * sizeof(Treinador));
+    Check_Null(copia);
+
+    FORi(n) { copia[i] = Treinadores[i]; }
+    return copia;
+}
+Pokemon* Copy_Pokemons(Pokemon *Pokemons, int n) {
+    Pokemon* copia = (Pokemon*) malloc(n * sizeof(Pokemon));
+    Check_Null(copia);
+
+    FORi(n) { copia[i] = Pokemons[i]; }
+    return copia;
+}
+
 
 void CadastraTreina(Treinador treinador, Treinador **Treinadores, int *n) {
     int repetido = 0;
-    FORi(n) { if((*Treinadores)[i].CPF == treinador.CPF) { repetido = 1; break; } }
+    FORi((*n)) { if((*Treinadores)[i].CPF == treinador.CPF) { repetido = 1; break; } }
 
     if(repetido == 0) {
         // REALOC AUMENTA A LISTA E INSERE O NOVO TREINADOR
@@ -94,37 +110,74 @@ void CadastraTreina(Treinador treinador, Treinador **Treinadores, int *n) {
         (*Treinadores)[(*n)-1] = treinador;
     }
 }
-void CadastraPoke(int cpf, Pokemon pokemon, Treinador *Treinadores, int n) {
-    FORi(n) {
-        if(Treinadores[i].CPF == cpf) {
-            Treinadores[i].Qtd_Pokemons++;
-            int qtd = Treinadores[i].Qtd_Pokemons;
+void CadastraPoke(int cpf, Pokemon pokemon, Treinador **Treinadores, int *n) {
+    FORi((*n)) {
+        if((*Treinadores)[i].CPF == cpf) {
+            int qtd = (*Treinadores)[i].Qtd_Pokemons, repetido = 0;
+            FORj(qtd) {
+                // SE JA TEM UM POKEMON COM ESSE ID
+                if(pokemon.ID == (*Treinadores)[i].Lista_Pokemons[j].ID) { repetido = 1; break; }
+            }
+            if(repetido == 1) { break; }
 
-            Pokemon *temp_Pokemons = realloc(Treinadores[i].Lista_Pokemons, qtd * sizeof(Pokemon));
+            (*Treinadores)[i].Qtd_Pokemons++;
+            qtd = (*Treinadores)[i].Qtd_Pokemons;
+
+            Pokemon *temp_Pokemons = realloc((*Treinadores)[i].Lista_Pokemons, qtd * sizeof(Pokemon));
             Check_Null(temp_Pokemons);
 
-            Treinadores[i].Lista_Pokemons = temp_Pokemons;
-            Treinadores[i].Lista_Pokemons[qtd-1] = pokemon;
-            Update_Treinador_Forca(&Treinadores[i]);
+            (*Treinadores)[i].Lista_Pokemons = temp_Pokemons;
+            (*Treinadores)[i].Lista_Pokemons[qtd-1] = pokemon;
+            Update_Treinador_Forca(&(*Treinadores)[i]);
             break;
         }
     }
 }
-void Listar(Treinador *Treinadores, int n) {
-    printf("Classificação atual\n");
-    FORi(n) {
-        printf("T: %s, CPF: %d, Nivel: %d\n", Treinadores[i].Nome, Treinadores[i].CPF, Treinadores[i].Nivel);
-        FORj(Treinadores[i].Qtd_Pokemons) {
-            Pokemon pokemon = Treinadores[i].Lista_Pokemons[j];
-            printf("  P: %d, %s, %d, %d, %s\n", pokemon.ID, pokemon.Nome, pokemon.XP, pokemon.Atk, Nomes_Tipos[pokemon.Tipo]);
+void Listar(Treinador **Treinadores, int *n) {
+    if((*n) == 0) { printf("Classificação atual\n"); return; }
+
+    Treinador *Treinadores_Ordenado = Copy_Treinadores(*Treinadores, *n);
+    FORi((*n)) {
+        FORj((*n)-i-1) {
+            if(Treinadores_Ordenado[j].Nivel < Treinadores_Ordenado[j+1].Nivel) {
+                Treinador temp = Treinadores_Ordenado[j];
+                Treinadores_Ordenado[j] = Treinadores_Ordenado[j+1];
+                Treinadores_Ordenado[j+1] = temp;
+            }
         }
     }
+
+    printf("Classificação atual\n");
+    FORi((*n)) {
+        printf("T: %s, CPF: %d, Nivel: %d\n", Treinadores_Ordenado[i].Nome, Treinadores_Ordenado[i].CPF, Treinadores_Ordenado[i].Nivel);
+
+        int qtd = Treinadores_Ordenado[i].Qtd_Pokemons;
+        if(qtd > 0) {
+            Pokemon *Pokemons_Ordenado = Copy_Pokemons(Treinadores_Ordenado[i].Lista_Pokemons, qtd);
+            FORj(qtd) {
+                FORk(qtd-j-1) {
+                    if(Pokemons_Ordenado[k].Forca < Pokemons_Ordenado[k+1].Forca) {
+                        Pokemon temp = Pokemons_Ordenado[k];
+                        Pokemons_Ordenado[k] = Pokemons_Ordenado[k+1];
+                        Pokemons_Ordenado[k+1] = temp;
+                    }
+                }
+            }
+
+            FORj(qtd) {
+                Pokemon pokemon = Pokemons_Ordenado[j];
+                printf("  P: %d, %s, %d, %d, %s\n", pokemon.ID, pokemon.Nome, pokemon.XP, pokemon.Atk, Nomes_Tipos[pokemon.Tipo]);
+            }
+            free(Pokemons_Ordenado);
+        }
+    }
+    free(Treinadores_Ordenado);
 }
 void Remover(int cpf, Treinador **Treinadores, int *n) {
     int x = 0;
     Treinador *temp_Treinadores = NULL;
 
-    FORi(n) {
+    FORi((*n)) {
         if((*Treinadores)[i].CPF != cpf) {
             x++;
             temp_Treinadores = realloc(temp_Treinadores, x * sizeof(Treinador));
@@ -140,16 +193,16 @@ void Remover(int cpf, Treinador **Treinadores, int *n) {
     *Treinadores = temp_Treinadores;
     *n = x;
 }
-void Atualizar(int cpf, int id, Pokemon pokemon, Treinador *Treinadores, int n) {
-    FORi(n) {
-        if(Treinadores[i].CPF == cpf) {
-            int qtd = Treinadores[i].Qtd_Pokemons;
+void Atualizar(int cpf, int id, Pokemon pokemon, Treinador **Treinadores, int *n) {
+    FORi((*n)) {
+        if((*Treinadores)[i].CPF == cpf) {
+            int qtd = (*Treinadores)[i].Qtd_Pokemons;
             FORj(qtd) {
-                if(pokemon.ID == Treinadores[i].Lista_Pokemons[j].ID) {
-                    Treinadores[i].Lista_Pokemons[j] = pokemon;
+                if(pokemon.ID == (*Treinadores)[i].Lista_Pokemons[j].ID) {
+                    (*Treinadores)[i].Lista_Pokemons[j] = pokemon;
                 }
             }
-            Update_Treinador_Forca(&Treinadores[i]);
+            Update_Treinador_Forca(&(*Treinadores)[i]);
             break;
         }
     }
@@ -157,10 +210,10 @@ void Atualizar(int cpf, int id, Pokemon pokemon, Treinador *Treinadores, int n) 
 
 typedef struct {
     void (*Cadastrar_Treinador)(Treinador, Treinador**, int*);
-    void (*Cadastrar_Pokemon)(int, Pokemon, Treinador*, int*);
-    void (*Listar_Classificacao)(Treinador*, int*);
+    void (*Cadastrar_Pokemon)(int, Pokemon, Treinador**, int*);
+    void (*Listar_Classificacao)(Treinador**, int*);
     void (*Remover_Treinador)(int, Treinador**, int*);
-    void (*Atualizar_Pokemon)(int, Pokemon, Treinador*, int*);
+    void (*Atualizar_Pokemon)(int, int, Pokemon, Treinador**, int*);
 } Operacoes;
 
 
@@ -199,7 +252,7 @@ int main() {
         else if(cmd == 5) {
             int cpf, id; char Nome[20]; int xp, atk, tipo; scanf("%d %d %s %d %d %d", &cpf, &id, Nome, &xp, &atk, &tipo);
             Pokemon pokemon = Novo_Pokemon(id, Nome, xp, atk, tipo);
-            Ops.Atualizar_Pokemon(cpf, pokemon, &Treinadores, &n);
+            Ops.Atualizar_Pokemon(cpf, id, pokemon, &Treinadores, &n);
         }
         scanf("%d", &cmd);
     }
