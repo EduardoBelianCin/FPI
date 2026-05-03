@@ -1,1 +1,5 @@
 Dia 30/04 - Resolvi a questão A sem auxilio de IA.
+
+Dia 03/05 - Ajuste na questão A.
+        - Resolvi a questão B sem auxilio de IA, apenas pra corrigir alguns erros de execução.
+        - Resolvi a questão C com auxilio de IA, sobre a restrições da questao sobre como manipular a memoria e as sub-rotinas.

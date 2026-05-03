@@ -81,7 +81,7 @@ void Print_Console(Jogo *Lista_Jogos, int n, char console[51]) {
 void Print_Colecao(Jogo *Lista_Jogos, int n) {
     FORi(n) {
         Jogo jogo = Lista_Jogos[i];
-        printf("%s\n", jogo.Titulo);
+        printf("%s %d\n", jogo.Titulo,jogo.Nota);
     }
 }
 
@@ -93,7 +93,7 @@ int main() {
     Jogo Lista_Jogos[n];
     FORi(n) {
         char titulo[51], genero[51], estudio[51], console[51]; int nota, ano;
-        scanf("%s %s %s %s %d %d", titulo,genero,estudio,console, nota,ano);
+        scanf("%s %s %s %s %d %d", titulo,genero,estudio,console, &nota,&ano);
 
         Lista_Jogos[i] = Novo_Jogo(titulo,genero,estudio,console,nota,ano);
         if(nota > 7) { printf("AWESOME! Mais um GOTY pra minha coleção!\n"); }
@@ -103,19 +103,19 @@ int main() {
     char funcao[21];
     while(scanf("%s", funcao) != EOF) {
         if(strcmp(funcao, "printAno") == 0) {
-            int ano; scanf("%d", &ano);
+            int ano; scanf(" %d", &ano);
             Print_Ano(Lista_Jogos, n, ano);
         }
         else if(strcmp(funcao, "printLetra") == 0) {
-            char letra; scanf("%c", &letra);
+            char letra; scanf(" %c", &letra);
             Print_Letra(Lista_Jogos, n, letra);
         }
         else if(strcmp(funcao, "printStudio") == 0) {
-            char estudio[51]; scanf("%s", estudio);
+            char estudio[51]; scanf(" %s", estudio);
             Print_Estudio(Lista_Jogos, n, estudio);
         }
         else if(strcmp(funcao, "printConsole") == 0) {
-            char console[51]; scanf("%s", console);
+            char console[51]; scanf(" %s", console);
             Print_Console(Lista_Jogos, n, console);
         }
         else if(strcmp(funcao, "printColecao") == 0) {
