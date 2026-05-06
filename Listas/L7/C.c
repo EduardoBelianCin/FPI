@@ -60,6 +60,12 @@ int main() {
         scanf("%d %s %d %d", &id, modelo, &energia_inicial, &q);
 
         Mechas[i] = malloc(sizeof(Mecha) + q * sizeof(SubSistema));
+
+        if(Mechas[i] == NULL) {
+            printf("Erro Aloc\n");
+            FORj(i) { free(Mechas[j]); }
+            exit(1);
+        }
         
         Mechas[i]->id = id;
         Mechas[i]->energia_atual = energia_inicial;
