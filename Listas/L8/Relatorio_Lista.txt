@@ -1,0 +1,5 @@
+Dia 13/05 - Resolvi a questão A sem auxilio de IA, apenas perguntei como recebia uma entrada de unsigned char.
+        - Resolvi a questão B com auxilio de IA, para receber uma entrada em hexadecimal conforme o comando da questão.
+        - Resolvi a questão C com auxilio de IA, para entender como fazer os tratamentos de ler e escrever nos arquivos.
+
+Dia 19/05 - Resolvi a questão D sem auxilio de IA.
